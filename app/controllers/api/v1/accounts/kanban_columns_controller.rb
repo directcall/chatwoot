@@ -31,6 +31,6 @@ class Api::V1::Accounts::KanbanColumnsController < Api::V1::Accounts::BaseContro
   end
 
   def kanban_column_params
-    params.require(:kanban_column).permit(:name, :description, :color, :position, :win_probability)
+    params.require(:kanban_column).permit(:name, :description, :color, :position, :win_probability, :outcome)
   end
 end

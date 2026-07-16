@@ -6,6 +6,7 @@
 #  board_type  :integer          default("conversation"), not null
 #  description :text
 #  name        :string           not null
+#  settings    :jsonb            not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  account_id  :bigint           not null

@@ -10,12 +10,17 @@
       "MENU_LABEL": "Overview"
     },
     "LOADING": "Loading Kanban",
+    "FILTER": {
+      "ALL_AGENTS": "All agents",
+      "ALL_INBOXES": "All inboxes"
+    },
     "BOARD": {
       "MENU_LABEL": "Boards",
       "CREATE": "New board",
       "CREATE_SUCCESS": "Board created successfully",
       "CREATE_ERROR": "Could not create board",
       "EDIT": "Edit board",
+      "SETTINGS": "Board settings",
       "UPDATE": "Update board",
       "EDIT_SUCCESS": "Board updated successfully",
       "EDIT_ERROR": "Could not update board",
@@ -30,6 +35,58 @@
       "NAME_LABEL": "Board name",
       "NAME_PLACEHOLDER": "Board name",
       "COUNTS": "{columns} columns, {cards} cards"
+    },
+    "SETTINGS": {
+      "ID": "ID: {id}",
+      "ID_COPIED": "Board ID copied",
+      "SAVE": "Save changes",
+      "SAVE_SUCCESS": "Board settings saved successfully",
+      "SAVE_ERROR": "Could not save board settings",
+      "BASIC": {
+        "TITLE": "Basic information",
+        "NAME": "Board name",
+        "DESCRIPTION": "Description",
+        "DESCRIPTION_PLACEHOLDER": "Describe how this board should be used"
+      },
+      "STAGES": {
+        "TITLE": "Stages",
+        "SAVE": "Save stage",
+        "SAVE_SUCCESS": "Stage saved successfully",
+        "SAVE_ERROR": "Could not save stage",
+        "REORDER_ERROR": "Could not reorder stages",
+        "OUTCOME": "Stage result",
+        "OUTCOME_OPEN": "Open",
+        "OUTCOME_WON": "Won",
+        "OUTCOME_LOST": "Lost",
+        "WON": "Won",
+        "LOST": "Lost"
+      },
+      "AGENTS": "Agents",
+      "INBOXES": "Inboxes",
+      "OPPORTUNITIES": {
+        "TITLE": "Opportunities",
+        "CURRENCY": "Currency"
+      },
+      "CURRENCY": {
+        "BRL": "BRL (R$) - Brazilian Real",
+        "USD": "USD ($) - US Dollar",
+        "EUR": "EUR (€) - Euro"
+      },
+      "PRODUCTS": {
+        "TITLE": "Product catalog",
+        "DESCRIPTION": "Manage the products and services available for opportunities on this board.",
+        "MANAGE": "Manage products",
+        "MODAL_TITLE": "Product catalog",
+        "SAVE": "Save products",
+        "ADD": "Add product",
+        "NAME": "Product name",
+        "PRICE": "Price"
+      },
+      "DELETE": {
+        "TITLE": "Delete board",
+        "DESCRIPTION": "After deleting a board, it cannot be restored. All its tasks and stages will be permanently deleted.",
+        "BUTTON": "Delete board"
+      }
     },
     "COLUMN": {
       "CREATE": "Add stage",
@@ -64,10 +121,26 @@
       "CREATE": "Create task",
       "CREATE_SUCCESS": "Task added successfully",
       "CREATE_ERROR": "Could not add task",
-      "DELETE": "Remove task",
+      "EDIT": "Edit task",
+      "UPDATE": "Update",
+      "CANCEL": "Cancel",
+      "UPDATE_SUCCESS": "Task updated successfully",
+      "UPDATE_ERROR": "Could not update task",
+      "DELETE": "Delete",
       "DELETE_SUCCESS": "Task removed successfully",
       "DELETE_ERROR": "Could not remove task",
       "MOVE_ERROR": "Could not move task",
+      "DUPLICATE": "Duplicate task",
+      "DUPLICATE_READY": "Task details copied. They will be applied to the next card you create.",
+      "COPY_ID": "Copy task ID",
+      "SHOW_MORE": "Show more",
+      "SHOW_LESS": "Show less",
+      "MOVE_NEXT": "Move to {column}",
+      "ID_LABEL": "ID: {id}",
+      "ID_COPIED": "Task ID copied",
+      "ID_COPY_ERROR": "Could not copy task ID",
+      "STATUS": "Status",
+      "EDIT_MODAL_TITLE": "Edit task in {board}",
       "MODAL_TITLE": "Add task",
       "MODAL_DESCRIPTION": "Select a conversation to add to {column}.",
       "SEARCH_LABEL": "Conversation",
@@ -79,7 +152,45 @@
       "CONVERSATION_ID_PLACEHOLDER": "ID",
       "UNKNOWN_CONTACT": "Unknown contact",
       "UNKNOWN_INBOX": "Unknown inbox",
-      "NO_PREVIEW": "No message preview"
+      "NO_PREVIEW": "No message preview",
+      "FIELDS": {
+        "TITLE": "Title",
+        "DESCRIPTION": "Description",
+        "DESCRIPTION_PLACEHOLDER": "Describe this task"
+      },
+      "PRIORITY": {
+        "URGENT": "Urgent",
+        "HIGH": "High",
+        "MEDIUM": "Medium",
+        "LOW": "Low",
+        "NONE": "None"
+      },
+      "OPPORTUNITY": {
+        "TITLE": "Opportunity",
+        "AMOUNT_BRL": "Value (R$)",
+        "AMOUNT_USD": "Value (US$)",
+        "AMOUNT_EUR": "Value (€)",
+        "PRODUCTS": "Products",
+        "ADD_PRODUCT": "Add product"
+      },
+      "RELATIONSHIPS": {
+        "TITLE": "Relationships",
+        "AGENTS": "Agents",
+        "ASSIGN_TO_ME": "Assign to me",
+        "LABELS": "Labels",
+        "CONTACTS": "Contacts",
+        "CONVERSATIONS": "Conversations",
+        "CONVERSATION": "Conversation"
+      },
+      "SCHEDULE": {
+        "TITLE": "Schedule",
+        "START": "Start date",
+        "DUE": "Due date"
+      },
+      "CUSTOM_ATTRIBUTES": {
+        "TITLE": "Custom attributes",
+        "EMPTY": "No custom task attributes defined."
+      }
     },
     "EMPTY_BOARD": {
       "TITLE": "Create your first board",

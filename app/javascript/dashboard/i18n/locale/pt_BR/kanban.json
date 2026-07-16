@@ -1,0 +1,204 @@
+{
+  "KANBAN": {
+    "HEADER": {
+      "TITLE": "Kanban",
+      "DESCRIPTION": "Acompanhe conversas entre quadros e colunas."
+    },
+    "OVERVIEW": {
+      "TITLE": "Quadros",
+      "DESCRIPTION": "Escolha um quadro para abrir seus cartões e colunas.",
+      "MENU_LABEL": "Visão geral"
+    },
+    "LOADING": "Carregando Kanban",
+    "FILTER": {
+      "ALL_AGENTS": "Todos os agentes",
+      "ALL_INBOXES": "Todas as caixas de entrada"
+    },
+    "BOARD": {
+      "MENU_LABEL": "Quadros",
+      "CREATE": "Novo quadro",
+      "CREATE_SUCCESS": "Quadro criado com sucesso",
+      "CREATE_ERROR": "Não foi possível criar o quadro",
+      "EDIT": "Editar quadro",
+      "SETTINGS": "Configurações do quadro",
+      "UPDATE": "Atualizar quadro",
+      "EDIT_SUCCESS": "Quadro atualizado com sucesso",
+      "EDIT_ERROR": "Não foi possível atualizar o quadro",
+      "DELETE": "Excluir quadro",
+      "DELETE_CONFIRM": "Excluir este quadro e todas as suas colunas e cartões?",
+      "DELETE_SUCCESS": "Quadro excluído com sucesso",
+      "DELETE_ERROR": "Não foi possível excluir o quadro",
+      "MODAL_TITLE": "Criar quadro",
+      "MODAL_DESCRIPTION": "Crie um quadro para organizar as etapas das conversas.",
+      "EDIT_MODAL_TITLE": "Editar quadro",
+      "EDIT_MODAL_DESCRIPTION": "Atualize o nome do quadro exibido na lista e no menu.",
+      "NAME_LABEL": "Nome do quadro",
+      "NAME_PLACEHOLDER": "Nome do quadro",
+      "COUNTS": "{columns} colunas, {cards} cartões"
+    },
+    "SETTINGS": {
+      "ID": "ID: {id}",
+      "ID_COPIED": "ID do quadro copiado",
+      "SAVE": "Salvar alterações",
+      "SAVE_SUCCESS": "Configurações do quadro salvas com sucesso",
+      "SAVE_ERROR": "Não foi possível salvar as configurações do quadro",
+      "BASIC": {
+        "TITLE": "Informações básicas",
+        "NAME": "Nome do quadro",
+        "DESCRIPTION": "Descrição",
+        "DESCRIPTION_PLACEHOLDER": "Descreva como este quadro deve ser usado"
+      },
+      "STAGES": {
+        "TITLE": "Etapas",
+        "SAVE": "Salvar etapa",
+        "SAVE_SUCCESS": "Etapa salva com sucesso",
+        "SAVE_ERROR": "Não foi possível salvar a etapa",
+        "REORDER_ERROR": "Não foi possível reordenar as etapas",
+        "OUTCOME": "Resultado da etapa",
+        "OUTCOME_OPEN": "Aberto",
+        "OUTCOME_WON": "Ganho",
+        "OUTCOME_LOST": "Perdido",
+        "WON": "Ganho",
+        "LOST": "Perdido"
+      },
+      "AGENTS": "Agentes",
+      "INBOXES": "Caixas de entrada",
+      "OPPORTUNITIES": {
+        "TITLE": "Oportunidades",
+        "CURRENCY": "Moeda"
+      },
+      "CURRENCY": {
+        "BRL": "BRL (R$) - Real brasileiro",
+        "USD": "USD ($) - Dólar americano",
+        "EUR": "EUR (€) - Euro"
+      },
+      "PRODUCTS": {
+        "TITLE": "Catálogo de produtos",
+        "DESCRIPTION": "Gerencie os produtos e serviços disponíveis para oportunidades neste quadro.",
+        "MANAGE": "Gerenciar produtos",
+        "MODAL_TITLE": "Catálogo de produtos",
+        "SAVE": "Salvar produtos",
+        "ADD": "Adicionar produto",
+        "NAME": "Nome do produto",
+        "PRICE": "Preço"
+      },
+      "DELETE": {
+        "TITLE": "Excluir quadro",
+        "DESCRIPTION": "Após excluir um quadro, ele não poderá ser restaurado. Todas as tarefas e etapas serão excluídas permanentemente.",
+        "BUTTON": "Excluir quadro"
+      }
+    },
+    "COLUMN": {
+      "CREATE": "Adicionar etapa",
+      "CREATE_SUCCESS": "Etapa criada com sucesso",
+      "CREATE_ERROR": "Não foi possível criar a etapa",
+      "EDIT": "Editar etapa",
+      "UPDATE": "Atualizar",
+      "EDIT_SUCCESS": "Etapa atualizada com sucesso",
+      "EDIT_ERROR": "Não foi possível atualizar a etapa",
+      "DELETE": "Excluir etapa",
+      "DELETE_CONFIRM": "Excluir esta etapa e todos os seus cartões?",
+      "DELETE_SUCCESS": "Etapa excluída com sucesso",
+      "DELETE_ERROR": "Não foi possível excluir a etapa",
+      "MODAL_TITLE": "Criar etapa",
+      "MODAL_DESCRIPTION": "Adicione uma nova etapa a este quadro Kanban.",
+      "EDIT_MODAL_TITLE": "Editar etapa em {board}",
+      "ID_LABEL": "ID: {id}",
+      "COPY_ID": "Copiar ID da etapa",
+      "ID_COPIED": "ID da etapa copiado",
+      "NAME_LABEL": "Nome da etapa",
+      "NAME_PLACEHOLDER": "Nome da etapa",
+      "DESCRIPTION_LABEL": "Descrição",
+      "DESCRIPTION_PLACEHOLDER": "Digite a descrição da etapa",
+      "COLOR_LABEL": "Cor da etapa",
+      "WIN_PROBABILITY_LABEL": "Probabilidade de ganho (%)",
+      "WIN_PROBABILITY_HELP": "Probabilidade de ganhar negócios nesta etapa. Usada para calcular o valor ponderado do funil.",
+      "CARD_COUNT": "{count} cartões",
+      "EMPTY": "Nenhum cartão"
+    },
+    "CARD": {
+      "ADD": "Adicionar tarefa",
+      "CREATE": "Criar tarefa",
+      "CREATE_SUCCESS": "Tarefa adicionada com sucesso",
+      "CREATE_ERROR": "Não foi possível adicionar a tarefa",
+      "EDIT": "Editar tarefa",
+      "UPDATE": "Atualizar",
+      "CANCEL": "Cancelar",
+      "UPDATE_SUCCESS": "Tarefa atualizada com sucesso",
+      "UPDATE_ERROR": "Não foi possível atualizar a tarefa",
+      "DELETE": "Excluir",
+      "DELETE_SUCCESS": "Tarefa removida com sucesso",
+      "DELETE_ERROR": "Não foi possível remover a tarefa",
+      "MOVE_ERROR": "Não foi possível mover a tarefa",
+      "DUPLICATE": "Duplicar tarefa",
+      "DUPLICATE_READY": "Detalhes da tarefa copiados. Serão aplicados ao próximo cartão criado.",
+      "COPY_ID": "Copiar ID da tarefa",
+      "SHOW_MORE": "Ver mais",
+      "SHOW_LESS": "Ver menos",
+      "MOVE_NEXT": "Mover para {column}",
+      "ID_LABEL": "ID: {id}",
+      "ID_COPIED": "ID da tarefa copiado",
+      "ID_COPY_ERROR": "Não foi possível copiar o ID da tarefa",
+      "STATUS": "Status",
+      "EDIT_MODAL_TITLE": "Editar tarefa em {board}",
+      "MODAL_TITLE": "Adicionar tarefa",
+      "MODAL_DESCRIPTION": "Selecione uma conversa para adicionar a {column}.",
+      "SEARCH_LABEL": "Conversa",
+      "SEARCH_PLACEHOLDER": "Buscar por ID, contato, mensagem, caixa de entrada ou status",
+      "LOADING_CONVERSATIONS": "Carregando conversas",
+      "EMPTY_CONVERSATIONS": "Nenhuma conversa disponível",
+      "CONVERSATIONS_ERROR": "Não foi possível carregar as conversas",
+      "CONVERSATION_ID": "ID da conversa",
+      "CONVERSATION_ID_PLACEHOLDER": "ID",
+      "UNKNOWN_CONTACT": "Contato desconhecido",
+      "UNKNOWN_INBOX": "Caixa de entrada desconhecida",
+      "NO_PREVIEW": "Sem prévia da mensagem",
+      "FIELDS": {
+        "TITLE": "Título",
+        "DESCRIPTION": "Descrição",
+        "DESCRIPTION_PLACEHOLDER": "Descreva esta tarefa"
+      },
+      "PRIORITY": {
+        "URGENT": "Urgente",
+        "HIGH": "Alta",
+        "MEDIUM": "Média",
+        "LOW": "Baixa",
+        "NONE": "Nenhuma"
+      },
+      "OPPORTUNITY": {
+        "TITLE": "Oportunidade",
+        "AMOUNT_BRL": "Valor (R$)",
+        "AMOUNT_USD": "Valor (US$)",
+        "AMOUNT_EUR": "Valor (€)",
+        "PRODUCTS": "Produtos",
+        "ADD_PRODUCT": "Adicionar produto"
+      },
+      "RELATIONSHIPS": {
+        "TITLE": "Relacionamentos",
+        "AGENTS": "Agentes",
+        "ASSIGN_TO_ME": "Atribuir a mim",
+        "LABELS": "Etiquetas",
+        "CONTACTS": "Contatos",
+        "CONVERSATIONS": "Conversas",
+        "CONVERSATION": "Conversa"
+      },
+      "SCHEDULE": {
+        "TITLE": "Agenda",
+        "START": "Data de início",
+        "DUE": "Data de vencimento"
+      },
+      "CUSTOM_ATTRIBUTES": {
+        "TITLE": "Atributos personalizados",
+        "EMPTY": "Nenhum atributo personalizado de tarefa definido."
+      }
+    },
+    "EMPTY_BOARD": {
+      "TITLE": "Crie seu primeiro quadro",
+      "DESCRIPTION": "Os quadros organizam as colunas e os cartões de conversa com os quais sua equipe trabalha."
+    },
+    "EMPTY_COLUMN": {
+      "TITLE": "Crie sua primeira coluna",
+      "DESCRIPTION": "As colunas agrupam cartões de conversa e podem representar etapas do seu fluxo de trabalho."
+    }
+  }
+}

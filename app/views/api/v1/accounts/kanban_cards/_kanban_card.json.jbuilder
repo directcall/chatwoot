@@ -7,14 +7,26 @@ json.conversation_id kanban_card.conversation_id
 json.conversation_display_id kanban_card.conversation.display_id
 json.conversation_status kanban_card.conversation.status
 json.conversation_priority kanban_card.conversation.priority
+json.conversation_labels kanban_card.conversation.cached_label_list_array
 json.last_activity_at kanban_card.conversation.last_activity_at.to_i if kanban_card.conversation.last_activity_at
 json.contact do
   json.id kanban_card.conversation.contact_id
   json.name kanban_card.conversation.contact&.name
+  json.thumbnail kanban_card.conversation.contact&.avatar_url
 end
 json.inbox do
   json.id kanban_card.conversation.inbox_id
   json.name kanban_card.conversation.inbox&.name
+  json.channel_type kanban_card.conversation.inbox&.channel_type
+  if kanban_card.conversation.inbox&.twilio?
+    json.medium kanban_card.conversation.inbox.channel.try(:medium)
+  end
+end
+if kanban_card.conversation.assignee.present?
+  json.assignee do
+    json.id kanban_card.conversation.assignee_id
+    json.name kanban_card.conversation.assignee.name
+  end
 end
 json.created_at kanban_card.created_at.to_i
 json.updated_at kanban_card.updated_at.to_i

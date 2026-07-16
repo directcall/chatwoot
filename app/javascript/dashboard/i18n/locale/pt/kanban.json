@@ -1,0 +1,204 @@
+{
+  "KANBAN": {
+    "HEADER": {
+      "TITLE": "Kanban",
+      "DESCRIPTION": "Acompanhe conversas entre quadros e colunas."
+    },
+    "OVERVIEW": {
+      "TITLE": "Quadros",
+      "DESCRIPTION": "Escolha um quadro para abrir os respetivos cartões e colunas.",
+      "MENU_LABEL": "Visão geral"
+    },
+    "LOADING": "A carregar Kanban",
+    "FILTER": {
+      "ALL_AGENTS": "Todos os agentes",
+      "ALL_INBOXES": "Todas as caixas de entrada"
+    },
+    "BOARD": {
+      "MENU_LABEL": "Quadros",
+      "CREATE": "Novo quadro",
+      "CREATE_SUCCESS": "Quadro criado com sucesso",
+      "CREATE_ERROR": "Não foi possível criar o quadro",
+      "EDIT": "Editar quadro",
+      "SETTINGS": "Definições do quadro",
+      "UPDATE": "Atualizar quadro",
+      "EDIT_SUCCESS": "Quadro atualizado com sucesso",
+      "EDIT_ERROR": "Não foi possível atualizar o quadro",
+      "DELETE": "Eliminar quadro",
+      "DELETE_CONFIRM": "Eliminar este quadro e todas as respetivas colunas e cartões?",
+      "DELETE_SUCCESS": "Quadro eliminado com sucesso",
+      "DELETE_ERROR": "Não foi possível eliminar o quadro",
+      "MODAL_TITLE": "Criar quadro",
+      "MODAL_DESCRIPTION": "Crie um quadro para organizar as etapas das conversas.",
+      "EDIT_MODAL_TITLE": "Editar quadro",
+      "EDIT_MODAL_DESCRIPTION": "Atualize o nome do quadro apresentado na lista e no menu.",
+      "NAME_LABEL": "Nome do quadro",
+      "NAME_PLACEHOLDER": "Nome do quadro",
+      "COUNTS": "{columns} colunas, {cards} cartões"
+    },
+    "SETTINGS": {
+      "ID": "ID: {id}",
+      "ID_COPIED": "ID do quadro copiado",
+      "SAVE": "Guardar alterações",
+      "SAVE_SUCCESS": "Definições do quadro guardadas com sucesso",
+      "SAVE_ERROR": "Não foi possível guardar as definições do quadro",
+      "BASIC": {
+        "TITLE": "Informações básicas",
+        "NAME": "Nome do quadro",
+        "DESCRIPTION": "Descrição",
+        "DESCRIPTION_PLACEHOLDER": "Descreva como este quadro deve ser utilizado"
+      },
+      "STAGES": {
+        "TITLE": "Etapas",
+        "SAVE": "Guardar etapa",
+        "SAVE_SUCCESS": "Etapa guardada com sucesso",
+        "SAVE_ERROR": "Não foi possível guardar a etapa",
+        "REORDER_ERROR": "Não foi possível reordenar as etapas",
+        "OUTCOME": "Resultado da etapa",
+        "OUTCOME_OPEN": "Aberto",
+        "OUTCOME_WON": "Ganho",
+        "OUTCOME_LOST": "Perdido",
+        "WON": "Ganho",
+        "LOST": "Perdido"
+      },
+      "AGENTS": "Agentes",
+      "INBOXES": "Caixas de entrada",
+      "OPPORTUNITIES": {
+        "TITLE": "Oportunidades",
+        "CURRENCY": "Moeda"
+      },
+      "CURRENCY": {
+        "BRL": "BRL (R$) - Real brasileiro",
+        "USD": "USD ($) - Dólar americano",
+        "EUR": "EUR (€) - Euro"
+      },
+      "PRODUCTS": {
+        "TITLE": "Catálogo de produtos",
+        "DESCRIPTION": "Faça a gestão dos produtos e serviços disponíveis para oportunidades neste quadro.",
+        "MANAGE": "Gerir produtos",
+        "MODAL_TITLE": "Catálogo de produtos",
+        "SAVE": "Guardar produtos",
+        "ADD": "Adicionar produto",
+        "NAME": "Nome do produto",
+        "PRICE": "Preço"
+      },
+      "DELETE": {
+        "TITLE": "Eliminar quadro",
+        "DESCRIPTION": "Após eliminar um quadro, este não poderá ser restaurado. Todas as tarefas e etapas serão eliminadas permanentemente.",
+        "BUTTON": "Eliminar quadro"
+      }
+    },
+    "COLUMN": {
+      "CREATE": "Adicionar etapa",
+      "CREATE_SUCCESS": "Etapa criada com sucesso",
+      "CREATE_ERROR": "Não foi possível criar a etapa",
+      "EDIT": "Editar etapa",
+      "UPDATE": "Atualizar",
+      "EDIT_SUCCESS": "Etapa atualizada com sucesso",
+      "EDIT_ERROR": "Não foi possível atualizar a etapa",
+      "DELETE": "Eliminar etapa",
+      "DELETE_CONFIRM": "Eliminar esta etapa e todos os respetivos cartões?",
+      "DELETE_SUCCESS": "Etapa eliminada com sucesso",
+      "DELETE_ERROR": "Não foi possível eliminar a etapa",
+      "MODAL_TITLE": "Criar etapa",
+      "MODAL_DESCRIPTION": "Adicione uma nova etapa a este quadro Kanban.",
+      "EDIT_MODAL_TITLE": "Editar etapa em {board}",
+      "ID_LABEL": "ID: {id}",
+      "COPY_ID": "Copiar ID da etapa",
+      "ID_COPIED": "ID da etapa copiado",
+      "NAME_LABEL": "Nome da etapa",
+      "NAME_PLACEHOLDER": "Nome da etapa",
+      "DESCRIPTION_LABEL": "Descrição",
+      "DESCRIPTION_PLACEHOLDER": "Introduza a descrição da etapa",
+      "COLOR_LABEL": "Cor da etapa",
+      "WIN_PROBABILITY_LABEL": "Probabilidade de ganho (%)",
+      "WIN_PROBABILITY_HELP": "Probabilidade de ganhar negócios nesta etapa. Utilizada para calcular o valor ponderado do funil.",
+      "CARD_COUNT": "{count} cartões",
+      "EMPTY": "Nenhum cartão"
+    },
+    "CARD": {
+      "ADD": "Adicionar tarefa",
+      "CREATE": "Criar tarefa",
+      "CREATE_SUCCESS": "Tarefa adicionada com sucesso",
+      "CREATE_ERROR": "Não foi possível adicionar a tarefa",
+      "EDIT": "Editar tarefa",
+      "UPDATE": "Atualizar",
+      "CANCEL": "Cancelar",
+      "UPDATE_SUCCESS": "Tarefa atualizada com sucesso",
+      "UPDATE_ERROR": "Não foi possível atualizar a tarefa",
+      "DELETE": "Eliminar",
+      "DELETE_SUCCESS": "Tarefa removida com sucesso",
+      "DELETE_ERROR": "Não foi possível remover a tarefa",
+      "MOVE_ERROR": "Não foi possível mover a tarefa",
+      "DUPLICATE": "Duplicar tarefa",
+      "DUPLICATE_READY": "Detalhes da tarefa copiados. Serão aplicados ao próximo cartão criado.",
+      "COPY_ID": "Copiar ID da tarefa",
+      "SHOW_MORE": "Ver mais",
+      "SHOW_LESS": "Ver menos",
+      "MOVE_NEXT": "Mover para {column}",
+      "ID_LABEL": "ID: {id}",
+      "ID_COPIED": "ID da tarefa copiado",
+      "ID_COPY_ERROR": "Não foi possível copiar o ID da tarefa",
+      "STATUS": "Estado",
+      "EDIT_MODAL_TITLE": "Editar tarefa em {board}",
+      "MODAL_TITLE": "Adicionar tarefa",
+      "MODAL_DESCRIPTION": "Selecione uma conversa para adicionar a {column}.",
+      "SEARCH_LABEL": "Conversa",
+      "SEARCH_PLACEHOLDER": "Pesquisar por ID, contacto, mensagem, caixa de entrada ou estado",
+      "LOADING_CONVERSATIONS": "A carregar conversas",
+      "EMPTY_CONVERSATIONS": "Nenhuma conversa disponível",
+      "CONVERSATIONS_ERROR": "Não foi possível carregar as conversas",
+      "CONVERSATION_ID": "ID da conversa",
+      "CONVERSATION_ID_PLACEHOLDER": "ID",
+      "UNKNOWN_CONTACT": "Contacto desconhecido",
+      "UNKNOWN_INBOX": "Caixa de entrada desconhecida",
+      "NO_PREVIEW": "Sem pré-visualização da mensagem",
+      "FIELDS": {
+        "TITLE": "Título",
+        "DESCRIPTION": "Descrição",
+        "DESCRIPTION_PLACEHOLDER": "Descreva esta tarefa"
+      },
+      "PRIORITY": {
+        "URGENT": "Urgente",
+        "HIGH": "Alta",
+        "MEDIUM": "Média",
+        "LOW": "Baixa",
+        "NONE": "Nenhuma"
+      },
+      "OPPORTUNITY": {
+        "TITLE": "Oportunidade",
+        "AMOUNT_BRL": "Valor (R$)",
+        "AMOUNT_USD": "Valor (US$)",
+        "AMOUNT_EUR": "Valor (€)",
+        "PRODUCTS": "Produtos",
+        "ADD_PRODUCT": "Adicionar produto"
+      },
+      "RELATIONSHIPS": {
+        "TITLE": "Relacionamentos",
+        "AGENTS": "Agentes",
+        "ASSIGN_TO_ME": "Atribuir a mim",
+        "LABELS": "Etiquetas",
+        "CONTACTS": "Contactos",
+        "CONVERSATIONS": "Conversas",
+        "CONVERSATION": "Conversa"
+      },
+      "SCHEDULE": {
+        "TITLE": "Agenda",
+        "START": "Data de início",
+        "DUE": "Data de vencimento"
+      },
+      "CUSTOM_ATTRIBUTES": {
+        "TITLE": "Atributos personalizados",
+        "EMPTY": "Nenhum atributo personalizado de tarefa definido."
+      }
+    },
+    "EMPTY_BOARD": {
+      "TITLE": "Crie o seu primeiro quadro",
+      "DESCRIPTION": "Os quadros organizam as colunas e os cartões de conversa com os quais a sua equipa trabalha."
+    },
+    "EMPTY_COLUMN": {
+      "TITLE": "Crie a sua primeira coluna",
+      "DESCRIPTION": "As colunas agrupam cartões de conversa e podem representar etapas do seu fluxo de trabalho."
+    }
+  }
+}

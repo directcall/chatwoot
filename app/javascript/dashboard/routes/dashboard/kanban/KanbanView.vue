@@ -3,11 +3,16 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { useAlert } from 'dashboard/composables';
+import ConversationAPI from 'dashboard/api/conversations';
 import { useStore, useMapGetter } from 'dashboard/composables/store';
 import Button from 'dashboard/components-next/button/Button.vue';
 import Dialog from 'dashboard/components-next/dialog/Dialog.vue';
 import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
 import KanbanColumn from './components/KanbanColumn.vue';
+import KanbanCardEditDialog from './components/KanbanCardEditDialog.vue';
+import KanbanFilterSelect from './components/KanbanFilterSelect.vue';
+import { KANBAN_COLUMN_COLORS } from './columnColors';
+import { defaultCardTitle, cardMetadata, cardConversationLabels } from './cardHelpers';
 
 const store = useStore();
 const { t } = useI18n();
@@ -20,11 +25,15 @@ const cards = useMapGetter('kanban/getCards');
 const conversations = useMapGetter('kanban/getConversations');
 const uiFlags = useMapGetter('kanban/getUIFlags');
 const currentRole = useMapGetter('getCurrentRole');
+const agents = useMapGetter('agents/getAgents');
+const inboxes = useMapGetter('inboxes/getInboxes');
+const accountLabels = useMapGetter('labels/getLabels');
+const currentUser = useMapGetter('getCurrentUser');
+
+const duplicatedCardTemplate = ref(null);
 
 const selectedBoardId = ref(null);
 const newBoardName = ref('');
-const editBoardName = ref('');
-const editingBoard = ref(null);
 const newColumnName = ref('');
 const newColumnColor = ref('blue');
 const editColumnName = ref('');
@@ -37,61 +46,15 @@ const selectedConversationId = ref(null);
 const conversationSearch = ref('');
 const descriptionInputRef = ref(null);
 const createBoardDialogRef = ref(null);
-const editBoardDialogRef = ref(null);
 const createColumnDialogRef = ref(null);
 const editColumnDialogRef = ref(null);
 const createCardDialogRef = ref(null);
+const editCardDialogRef = ref(null);
+const editingCard = ref(null);
+const selectedAgentId = ref(null);
+const selectedInboxId = ref(null);
 
-const columnColorOptions = [
-  {
-    value: 'blue',
-    label: 'Blue',
-    hex: '#60a5fa',
-    class: 'bg-n-blue-9',
-    selectedClass: 'border-n-blue-8 bg-n-blue-3 text-n-blue-11 hover:bg-n-blue-4',
-    hoverClass: 'hover:border-n-blue-8 hover:bg-n-blue-3 hover:text-n-blue-11',
-  },
-  {
-    value: 'amber',
-    label: 'Amber',
-    hex: '#fbbf24',
-    class: 'bg-n-amber-9',
-    selectedClass: 'border-n-amber-8 bg-n-amber-3 text-n-amber-11 hover:bg-n-amber-4',
-    hoverClass: 'hover:border-n-amber-8 hover:bg-n-amber-3 hover:text-n-amber-11',
-  },
-  {
-    value: 'violet',
-    label: 'Violet',
-    hex: '#a78bfa',
-    class: 'bg-n-violet-9',
-    selectedClass: 'border-n-violet-8 bg-n-violet-3 text-n-violet-11 hover:bg-n-violet-4',
-    hoverClass: 'hover:border-n-violet-8 hover:bg-n-violet-3 hover:text-n-violet-11',
-  },
-  {
-    value: 'teal',
-    label: 'Teal',
-    hex: '#34d399',
-    class: 'bg-n-teal-9',
-    selectedClass: 'border-n-teal-8 bg-n-teal-3 text-n-teal-11 hover:bg-n-teal-4',
-    hoverClass: 'hover:border-n-teal-8 hover:bg-n-teal-3 hover:text-n-teal-11',
-  },
-  {
-    value: 'ruby',
-    label: 'Ruby',
-    hex: '#f87171',
-    class: 'bg-n-ruby-9',
-    selectedClass: 'border-n-ruby-8 bg-n-ruby-3 text-n-ruby-11 hover:bg-n-ruby-4',
-    hoverClass: 'hover:border-n-ruby-8 hover:bg-n-ruby-3 hover:text-n-ruby-11',
-  },
-  {
-    value: 'slate',
-    label: 'Slate',
-    hex: '#94a3b8',
-    class: 'bg-n-slate-9',
-    selectedClass: 'border-n-slate-8 bg-n-slate-3 text-n-slate-12 hover:bg-n-slate-4',
-    hoverClass: 'hover:border-n-slate-8 hover:bg-n-slate-3 hover:text-n-slate-12',
-  },
-];
+const columnColorOptions = KANBAN_COLUMN_COLORS;
 
 const DESCRIPTION_MAX_LENGTH = 120;
 const DEFAULT_COLUMN_WIN_PROBABILITY = 100;
@@ -143,6 +106,16 @@ const availableConversations = computed(() => {
   return conversations.value
     .filter(conversation => !existingConversationIds.value.has(Number(conversation.id)))
     .filter(conversation => {
+      const configuredInboxIds = selectedBoard.value?.settings?.inboxIds || [];
+      if (!configuredInboxIds.length) return true;
+
+      const inboxId =
+        conversation.inboxId ||
+        conversation.inbox?.id ||
+        conversation.meta?.inbox?.id;
+      return configuredInboxIds.includes(Number(inboxId));
+    })
+    .filter(conversation => {
       if (!search) return true;
 
       return [
@@ -186,9 +159,48 @@ const orderedColumns = computed(() =>
   [...columns.value].sort((a, b) => a.position - b.position || a.id - b.id)
 );
 
+const agentFilterOptions = computed(() => {
+  const configuredAgentIds = selectedBoard.value?.settings?.agentIds || [];
+  const availableAgents = configuredAgentIds.length
+    ? agents.value.filter(agent => configuredAgentIds.includes(agent.id))
+    : agents.value;
+
+  return availableAgents.map(agent => ({
+    value: agent.id,
+    label: agent.name,
+    thumbnail: {
+      name: agent.name,
+      src: agent.avatar_url,
+    },
+  }));
+});
+
+const inboxFilterOptions = computed(() => {
+  const configuredInboxIds = selectedBoard.value?.settings?.inboxIds || [];
+  const availableInboxes = configuredInboxIds.length
+    ? inboxes.value.filter(inbox => configuredInboxIds.includes(inbox.id))
+    : inboxes.value;
+
+  return availableInboxes.map(inbox => ({
+    value: inbox.id,
+    label: inbox.name,
+    icon: 'i-lucide-inbox',
+  }));
+});
+
 const cardsByColumn = columnId => {
   return cards.value
     .filter(card => card.kanbanColumnId === Number(columnId))
+    .filter(
+      card =>
+        selectedAgentId.value === null ||
+        card.assignee?.id === selectedAgentId.value
+    )
+    .filter(
+      card =>
+        selectedInboxId.value === null ||
+        card.inbox?.id === selectedInboxId.value
+    )
     .sort((a, b) => a.position - b.position || a.id - b.id);
 };
 
@@ -196,8 +208,12 @@ const COLUMN_CHIP_TONES = {
   blue: 'bg-n-blue-3 text-n-blue-11',
   amber: 'bg-n-amber-3 text-n-amber-11',
   violet: 'bg-n-violet-3 text-n-violet-11',
+  iris: 'bg-n-iris-3 text-n-iris-11',
   teal: 'bg-n-teal-3 text-n-teal-11',
+  green: 'bg-green-100 text-green-700',
   ruby: 'bg-n-ruby-3 text-n-ruby-11',
+  red: 'bg-red-100 text-red-700',
+  yellow: 'bg-yellow-100 text-yellow-700',
   slate: 'bg-n-slate-3 text-n-slate-11',
 };
 
@@ -213,9 +229,11 @@ const normalizeColumnColor = color => {
     purple: 'violet',
     '#10b981': 'teal',
     '#34d399': 'teal',
-    green: 'teal',
+    '#30a46c': 'green',
     '#f87171': 'ruby',
-    red: 'ruby',
+    '#e5484d': 'red',
+    '#f5d90a': 'yellow',
+    '#5b5bd6': 'iris',
     gray: 'slate',
     grey: 'slate',
   };
@@ -240,23 +258,28 @@ const openBoard = board => {
   router.push(boardRoute(board.id));
 };
 
+const boardSummary = description => {
+  const container = document.createElement('div');
+  container.innerHTML = description || '';
+  return container.textContent || '';
+};
+
+const openBoardSettings = board => {
+  router.push({
+    name: 'kanban_board_settings',
+    params: {
+      accountId: route.params.accountId,
+      boardId: board.id,
+    },
+  });
+};
+
 const openCreateBoardDialog = () => {
   createBoardDialogRef.value?.open();
 };
 
 const closeCreateBoardDialog = () => {
   newBoardName.value = '';
-};
-
-const openEditBoardDialog = board => {
-  editingBoard.value = board;
-  editBoardName.value = board.name || '';
-  editBoardDialogRef.value?.open();
-};
-
-const closeEditBoardDialog = () => {
-  editingBoard.value = null;
-  editBoardName.value = '';
 };
 
 const openCreateColumnDialog = () => {
@@ -315,6 +338,11 @@ const closeCreateCardDialog = () => {
   conversationSearch.value = '';
 };
 
+const openCreateCardFromHeader = () => {
+  if (!orderedColumns.value.length) return;
+  openCreateCardDialog(orderedColumns.value[0]);
+};
+
 const copyEditingColumnId = () => {
   if (!editingColumn.value?.id) return;
   navigator.clipboard?.writeText(String(editingColumn.value.id));
@@ -362,22 +390,6 @@ const createBoard = async () => {
   }
 };
 
-const updateBoard = async () => {
-  const name = editBoardName.value.trim();
-  if (!name || !editingBoard.value) return;
-
-  try {
-    await store.dispatch('kanban/updateBoard', {
-      id: editingBoard.value.id,
-      name,
-    });
-    editBoardDialogRef.value?.close();
-    useAlert(t('KANBAN.BOARD.EDIT_SUCCESS'));
-  } catch (error) {
-    useAlert(error?.message || t('KANBAN.BOARD.EDIT_ERROR'));
-  }
-};
-
 const createColumn = async () => {
   const name = newColumnName.value.trim();
   if (!name || !selectedBoardId.value) return;
@@ -418,29 +430,6 @@ const updateColumn = async () => {
   }
 };
 
-const deleteBoard = async board => {
-  const boardId = board?.id || selectedBoardId.value;
-  if (
-    !boardId ||
-    !window.confirm(t('KANBAN.BOARD.DELETE_CONFIRM'))
-  ) {
-    return;
-  }
-
-  try {
-    await store.dispatch('kanban/deleteBoard', boardId);
-    if (!isOverview.value || Number(route.params.boardId) === Number(boardId)) {
-      router.push({
-        name: 'kanban_dashboard_index',
-        params: { accountId: route.params.accountId },
-      });
-    }
-    useAlert(t('KANBAN.BOARD.DELETE_SUCCESS'));
-  } catch (error) {
-    useAlert(error?.message || t('KANBAN.BOARD.DELETE_ERROR'));
-  }
-};
-
 const deleteColumn = async column => {
   if (!window.confirm(t('KANBAN.COLUMN.DELETE_CONFIRM'))) return false;
 
@@ -467,20 +456,59 @@ const deleteEditingColumn = async () => {
 const createCard = async () => {
   if (!selectedColumnForCard.value || !selectedConversation.value) return;
 
+  const template = duplicatedCardTemplate.value || {};
+
   try {
     await store.dispatch('kanban/createCard', {
       boardId: selectedBoardId.value,
       card: {
         kanbanColumnId: selectedColumnForCard.value.id,
         conversationDisplayId: selectedConversation.value.id,
+        metadata: {
+          title: defaultCardTitle({
+            conversationDisplayId: selectedConversation.value.id,
+            contactName: conversationName(selectedConversation.value),
+          }),
+          priority: 'none',
+          completed: false,
+          amount: 0,
+          products: [],
+          agentIds: [],
+          ...template,
+        },
       },
     });
+    duplicatedCardTemplate.value = null;
     store.dispatch('kanban/getBoards');
     createCardDialogRef.value?.close();
     useAlert(t('KANBAN.CARD.CREATE_SUCCESS'));
   } catch (error) {
     useAlert(error?.message || t('KANBAN.CARD.CREATE_ERROR'));
   }
+};
+
+const duplicateCard = card => {
+  const metadata = cardMetadata(card);
+  duplicatedCardTemplate.value = {
+    description: metadata.description,
+    priority: metadata.priority,
+    completed: false,
+    amount: metadata.amount,
+    products: metadata.products.map(product => ({ ...product })),
+    agentIds: [...metadata.agentIds],
+    startsAt: metadata.startsAt,
+    dueAt: metadata.dueAt,
+  };
+  useAlert(t('KANBAN.CARD.DUPLICATE_READY'));
+};
+
+const openEditCardDialog = card => {
+  editingCard.value = card;
+  editCardDialogRef.value?.open();
+};
+
+const closeEditCardDialog = () => {
+  editingCard.value = null;
 };
 
 const deleteCard = async card => {
@@ -490,6 +518,10 @@ const deleteCard = async card => {
       cardId: card.id,
     });
     store.dispatch('kanban/getBoards');
+    if (editingCard.value?.id === card.id) {
+      editCardDialogRef.value?.close();
+      editingCard.value = null;
+    }
     useAlert(t('KANBAN.CARD.DELETE_SUCCESS'));
   } catch (error) {
     useAlert(error?.message || t('KANBAN.CARD.DELETE_ERROR'));
@@ -501,14 +533,77 @@ const reorderColumn = payload => {
 };
 
 const moveCard = async payload => {
+  const columnId = Number(payload.columnId);
+  const cardId = Number(payload.cardId);
+  const targetCards = cards.value
+    .filter(
+      card =>
+        Number(card.kanbanColumnId) === columnId && Number(card.id) !== cardId
+    )
+    .sort((a, b) => a.position - b.position || a.id - b.id);
+  const orderedCardIds =
+    payload.orderedCardIds || [...targetCards.map(card => card.id), cardId];
+  const position =
+    payload.position || (orderedCardIds.indexOf(cardId) + 1) * 10;
+
   try {
     await store.dispatch('kanban/moveCard', {
       boardId: selectedBoardId.value,
-      ...payload,
+      cardId,
+      columnId,
+      position,
+      orderedCardIds,
     });
     store.dispatch('kanban/getBoards');
   } catch (error) {
     useAlert(error?.message || t('KANBAN.CARD.MOVE_ERROR'));
+  }
+};
+
+const updateCardMetadata = async ({ card, metadata }) => {
+  try {
+    await store.dispatch('kanban/updateCard', {
+      boardId: selectedBoardId.value,
+      cardId: card.id,
+      card: { metadata },
+    });
+  } catch (error) {
+    useAlert(error?.message || t('KANBAN.CARD.UPDATE_ERROR'));
+  }
+};
+
+const saveEditedCard = async ({ card, kanbanColumnId, metadata, labels }) => {
+  try {
+    await store.dispatch('kanban/updateCard', {
+      boardId: selectedBoardId.value,
+      cardId: card.id,
+      card: { metadata },
+    });
+
+    const currentLabels = cardConversationLabels(card);
+    const labelsChanged =
+      JSON.stringify([...currentLabels].sort()) !==
+      JSON.stringify([...(labels || [])].sort());
+
+    if (labelsChanged && card.conversationDisplayId) {
+      await ConversationAPI.updateLabels(card.conversationDisplayId, labels);
+      store.dispatch('kanban/patchCard', {
+        cardId: card.id,
+        attributes: { conversationLabels: labels },
+      });
+    }
+
+    if (Number(kanbanColumnId) !== Number(card.kanbanColumnId)) {
+      await moveCard({ cardId: card.id, columnId: kanbanColumnId });
+    } else {
+      store.dispatch('kanban/getBoards');
+    }
+
+    editCardDialogRef.value?.close();
+    editingCard.value = null;
+    useAlert(t('KANBAN.CARD.UPDATE_SUCCESS'));
+  } catch (error) {
+    useAlert(error?.message || t('KANBAN.CARD.UPDATE_ERROR'));
   }
 };
 
@@ -534,7 +629,12 @@ watch(boards, currentBoards => {
 });
 
 onMounted(async () => {
-  await store.dispatch('kanban/getBoards');
+  await Promise.all([
+    store.dispatch('kanban/getBoards'),
+    store.dispatch('agents/get'),
+    store.dispatch('inboxes/get'),
+    store.dispatch('labels/get'),
+  ]);
   if (route.params.boardId) {
     selectedBoardId.value = Number(route.params.boardId);
     loadBoard(route.params.boardId);
@@ -620,28 +720,19 @@ onMounted(async () => {
               </span>
             </div>
             <p v-if="board.description" class="mt-2 text-sm text-n-slate-11">
-              {{ board.description }}
+              {{ boardSummary(board.description) }}
             </p>
           </button>
 
-          <div v-if="canManageBoard" class="flex shrink-0 items-center gap-1">
-            <Button
-              v-tooltip.top="$t('KANBAN.BOARD.EDIT')"
-              icon="i-lucide-pencil"
-              slate
-              ghost
-              sm
-              @click="openEditBoardDialog(board)"
-            />
-            <Button
-              v-tooltip.top="$t('KANBAN.BOARD.DELETE')"
-              icon="i-lucide-trash-2"
-              ruby
-              ghost
-              sm
-              @click="deleteBoard(board)"
-            />
-          </div>
+          <Button
+            v-if="canManageBoard"
+            v-tooltip.top="$t('KANBAN.BOARD.SETTINGS')"
+            icon="i-lucide-settings"
+            slate
+            ghost
+            sm
+            @click="openBoardSettings(board)"
+          />
         </div>
 
         <button
@@ -668,10 +759,7 @@ onMounted(async () => {
     </section>
 
     <section v-else class="flex min-h-0 flex-1 flex-col">
-      <div
-        class="flex flex-col gap-2 border-b border-n-weak bg-n-solid-1 px-5 py-2.5
-          md:flex-row md:items-center"
-      >
+      <div class="flex flex-col gap-3 border-b border-n-weak bg-n-solid-1 px-5 py-2.5 lg:flex-row lg:items-center lg:justify-between">
         <div class="min-w-0">
           <h2 class="truncate text-base font-semibold text-n-slate-12">
             {{ selectedBoard?.name }}
@@ -685,6 +773,29 @@ onMounted(async () => {
             }}
           </p>
         </div>
+
+        <div class="flex min-w-0 flex-wrap items-center gap-2">
+          <KanbanFilterSelect
+            v-model="selectedAgentId"
+            :options="agentFilterOptions"
+            :all-label="$t('KANBAN.FILTER.ALL_AGENTS')"
+            icon="i-lucide-user-round"
+          />
+          <KanbanFilterSelect
+            v-model="selectedInboxId"
+            :options="inboxFilterOptions"
+            :all-label="$t('KANBAN.FILTER.ALL_INBOXES')"
+            icon="i-lucide-inbox"
+          />
+          <Button
+            v-if="canManageBoard"
+            type="button"
+            icon="i-lucide-plus"
+            :label="$t('KANBAN.CARD.ADD')"
+            :disabled="!orderedColumns.length"
+            @click="openCreateCardFromHeader"
+          />
+        </div>
       </div>
 
       <div
@@ -695,23 +806,26 @@ onMounted(async () => {
           v-for="column in orderedColumns"
           :key="column.id"
           :column="column"
+          :columns="orderedColumns"
           :cards="cardsByColumn(column.id)"
+          :currency="selectedBoard?.settings?.currency || 'BRL'"
           :is-creating-card="uiFlags.isCreatingCard"
           :can-manage="canManageBoard"
           @create-card="openCreateCardDialog"
           @delete-card="deleteCard"
+          @duplicate-card="duplicateCard"
+          @edit-card="openEditCardDialog"
           @delete-column="deleteColumn"
           @edit-column="openEditColumnDialog"
           @reorder="reorderColumn"
           @move-card="moveCard"
+          @update-card-metadata="updateCardMetadata"
         />
 
         <button
           v-if="canManageBoard"
           type="button"
-          class="flex min-h-[28rem] w-[19.5rem] shrink-0 items-center justify-center rounded-lg border border-dashed
-            border-n-weak bg-n-background/60 p-4 text-n-blue-11 transition-colors hover:border-n-brand
-            hover:bg-n-brand/10"
+          class="flex min-h-[28rem] w-[19.5rem] shrink-0 items-center justify-center rounded-lg border border-dashed border-n-brand bg-n-blue-2/30 p-4 text-n-blue-11 transition-colors hover:bg-n-brand/10"
           @click="openCreateColumnDialog"
         >
           <span
@@ -753,28 +867,6 @@ onMounted(async () => {
       </label>
       <input
         v-model="newBoardName"
-        type="text"
-        class="h-10 w-full rounded-md border border-n-weak bg-n-alpha-1 px-3 text-sm text-n-slate-12 outline-none focus:border-n-brand"
-        :placeholder="$t('KANBAN.BOARD.NAME_PLACEHOLDER')"
-      />
-    </Dialog>
-
-    <Dialog
-      ref="editBoardDialogRef"
-      :title="$t('KANBAN.BOARD.EDIT_MODAL_TITLE')"
-      :description="$t('KANBAN.BOARD.EDIT_MODAL_DESCRIPTION')"
-      :confirm-button-label="$t('KANBAN.BOARD.UPDATE')"
-      :disable-confirm-button="!editBoardName.trim()"
-      :is-loading="uiFlags.isUpdatingBoard"
-      width="md"
-      @confirm="updateBoard"
-      @close="closeEditBoardDialog"
-    >
-      <label class="mb-2 block text-sm font-medium text-n-slate-12">
-        {{ $t('KANBAN.BOARD.NAME_LABEL') }}
-      </label>
-      <input
-        v-model="editBoardName"
         type="text"
         class="h-10 w-full rounded-md border border-n-weak bg-n-alpha-1 px-3 text-sm text-n-slate-12 outline-none focus:border-n-brand"
         :placeholder="$t('KANBAN.BOARD.NAME_PLACEHOLDER')"
@@ -1160,5 +1252,21 @@ onMounted(async () => {
         </div>
       </div>
     </Dialog>
+
+    <KanbanCardEditDialog
+      ref="editCardDialogRef"
+      :card="editingCard"
+      :board-name="selectedBoard?.name || ''"
+      :columns="orderedColumns"
+      :agents="agents"
+      :account-labels="accountLabels"
+      :current-user-id="currentUser?.id"
+      :currency="selectedBoard?.settings?.currency || 'BRL'"
+      :catalog-products="selectedBoard?.settings?.products || []"
+      :is-loading="uiFlags.isUpdatingCard"
+      @save="saveEditedCard"
+      @delete="deleteCard"
+      @close="closeEditCardDialog"
+    />
   </main>
 </template>

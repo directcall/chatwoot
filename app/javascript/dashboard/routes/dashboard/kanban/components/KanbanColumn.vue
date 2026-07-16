@@ -21,21 +21,27 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  currency: {
+    type: String,
+    default: 'BRL',
+  },
+  columns: {
+    type: Array,
+    default: () => [],
+  },
 });
 
 const emit = defineEmits([
   'create-card',
   'delete-card',
+  'duplicate-card',
+  'edit-card',
   'delete-column',
   'edit-column',
   'move-card',
+  'update-card-metadata',
   'reorder',
 ]);
-
-const moneyFormatter = new Intl.NumberFormat('pt-BR', {
-  style: 'currency',
-  currency: 'BRL',
-});
 
 const COLUMN_TONES = {
   blue: {
@@ -59,6 +65,13 @@ const COLUMN_TONES = {
     body: 'bg-n-violet-2/40 dark:bg-n-violet-3/30',
     empty: 'text-n-violet-11',
   },
+  iris: {
+    shell: 'border-n-iris-7 bg-n-iris-2 dark:bg-n-iris-3',
+    header: 'bg-n-iris-9 text-white',
+    count: 'bg-white/20 text-white',
+    body: 'bg-n-iris-2/40 dark:bg-n-iris-3/30',
+    empty: 'text-n-iris-11',
+  },
   teal: {
     shell: 'border-n-teal-7 bg-n-teal-2 dark:bg-n-teal-3',
     header: 'bg-n-teal-9 text-white',
@@ -66,12 +79,33 @@ const COLUMN_TONES = {
     body: 'bg-n-teal-2/40 dark:bg-n-teal-3/30',
     empty: 'text-n-teal-11',
   },
+  green: {
+    shell: 'border-green-300 bg-green-100/40 dark:bg-green-800/40',
+    header: 'bg-green-500 text-white',
+    count: 'bg-white/20 text-white',
+    body: 'bg-green-100/30 dark:bg-green-800/30',
+    empty: 'text-green-700',
+  },
   ruby: {
     shell: 'border-n-ruby-7 bg-n-ruby-2 dark:bg-n-ruby-3',
     header: 'bg-n-ruby-9 text-white',
     count: 'bg-white/20 text-white',
     body: 'bg-n-ruby-2/40 dark:bg-n-ruby-3/30',
     empty: 'text-n-ruby-11',
+  },
+  red: {
+    shell: 'border-red-300 bg-red-100/40 dark:bg-red-800/40',
+    header: 'bg-red-500 text-white',
+    count: 'bg-white/20 text-white',
+    body: 'bg-red-100/30 dark:bg-red-800/30',
+    empty: 'text-red-700',
+  },
+  yellow: {
+    shell: 'border-yellow-300 bg-yellow-100/40 dark:bg-yellow-800/40',
+    header: 'bg-yellow-400 text-n-slate-12',
+    count: 'bg-black/10 text-n-slate-12',
+    body: 'bg-yellow-100/30 dark:bg-yellow-800/30',
+    empty: 'text-yellow-700',
   },
   slate: {
     shell: 'border-n-weak bg-n-slate-2 dark:bg-n-slate-3',
@@ -111,9 +145,11 @@ const normalizeColumnColor = ({ color, name }) => {
     purple: 'violet',
     '#10b981': 'teal',
     '#34d399': 'teal',
-    green: 'teal',
+    '#30a46c': 'green',
     '#f87171': 'ruby',
-    red: 'ruby',
+    '#e5484d': 'red',
+    '#f5d90a': 'yellow',
+    '#5b5bd6': 'iris',
     gray: 'slate',
     grey: 'slate',
   };
@@ -148,7 +184,10 @@ const columnAmount = computed(() =>
 );
 
 const formattedColumnAmount = computed(() =>
-  moneyFormatter.format(columnAmount.value)
+  new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: props.currency,
+  }).format(columnAmount.value)
 );
 
 const localCards = computed({
@@ -197,7 +236,7 @@ const onCardChange = event => {
           </span>
         </div>
         <p class="mt-1 flex items-center gap-2 text-sm font-medium opacity-80">
-          <span class="i-lucide-banknote size-4 shrink-0" />
+          <span class="i-lucide-banknote size-5 shrink-0" />
           <span>{{ formattedColumnAmount }}</span>
         </p>
       </div>
@@ -208,18 +247,26 @@ const onCardChange = event => {
           ghost
           slate
           xs
-          class="!size-8 !p-0 !text-current hover:enabled:!bg-white/20"
+          class="!size-9 !p-0 !text-current hover:enabled:!bg-white/20"
           @click="emit('edit-column', column)"
-        />
+        >
+          <template #icon>
+            <span class="i-lucide-settings size-5" />
+          </template>
+        </Button>
         <Button
           v-tooltip.top="$t('KANBAN.CARD.ADD')"
           icon="i-lucide-plus"
           ghost
           slate
           xs
-          class="!size-8 !p-0 !text-current hover:enabled:!bg-white/20"
+          class="!size-9 !p-0 !text-current hover:enabled:!bg-white/20"
           @click="emit('create-card', column)"
-        />
+        >
+          <template #icon>
+            <span class="i-lucide-plus size-5" />
+          </template>
+        </Button>
       </div>
     </header>
 
@@ -233,7 +280,17 @@ const onCardChange = event => {
       @change="onCardChange"
     >
       <template #item="{ element }">
-        <KanbanCard :card="element" @delete="emit('delete-card', $event)" />
+        <KanbanCard
+          :card="element"
+          :columns="columns"
+          :currency="currency"
+          :can-manage="canManage"
+          @delete="emit('delete-card', $event)"
+          @duplicate="emit('duplicate-card', $event)"
+          @edit="emit('edit-card', $event)"
+          @move="emit('move-card', $event)"
+          @update-metadata="emit('update-card-metadata', $event)"
+        />
       </template>
       <template #footer>
         <p

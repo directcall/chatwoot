@@ -2,7 +2,7 @@ class Api::V1::Accounts::KanbanBoardsController < Api::V1::Accounts::BaseControl
   DEFAULT_COLUMNS = [
     { name: 'New', color: 'blue', position: 10 },
     { name: 'In Progress', color: 'violet', position: 20 },
-    { name: 'Done', color: 'teal', position: 30 }
+    { name: 'Done', color: 'teal', position: 30, outcome: 'won' }
   ].freeze
 
   before_action :fetch_kanban_board, only: [:show, :update, :destroy]
@@ -39,6 +39,11 @@ class Api::V1::Accounts::KanbanBoardsController < Api::V1::Accounts::BaseControl
   end
 
   def kanban_board_params
-    params.require(:kanban_board).permit(:name, :description, :board_type)
+    params.require(:kanban_board).permit(
+      :name,
+      :description,
+      :board_type,
+      settings: [:currency, { agent_ids: [], inbox_ids: [], products: [:id, :name, :price] }]
+    )
   end
 end

@@ -22,6 +22,7 @@ export const state = {
     isCreatingColumn: false,
     isUpdatingColumn: false,
     isCreatingCard: false,
+    isUpdatingCard: false,
     isMovingCard: false,
   },
 };
@@ -215,6 +216,28 @@ export const actions = {
     }
   },
 
+  updateCard: async function updateCard(
+    { commit },
+    { boardId, cardId, card }
+  ) {
+    commit(types.SET_KANBAN_UI_FLAG, { isUpdatingCard: true });
+    try {
+      const response = await KanbanCardsAPI.update({
+        boardId,
+        cardId,
+        card: wrap('kanban_card', card),
+      });
+      const normalizedCard = normalize(response.data);
+      commit(types.UPDATE_KANBAN_CARD, normalizedCard);
+      return normalizedCard;
+    } catch (error) {
+      throwErrorMessage(error);
+      throw error;
+    } finally {
+      commit(types.SET_KANBAN_UI_FLAG, { isUpdatingCard: false });
+    }
+  },
+
   reorderColumn({ commit }, { columnId, orderedCardIds }) {
     commit(types.REORDER_KANBAN_CARDS, { columnId, orderedCardIds });
   },
@@ -253,6 +276,13 @@ export const actions = {
       throwErrorMessage(error);
       throw error;
     }
+  },
+
+  patchCard({ commit, state }, { cardId, attributes }) {
+    const card = state.cards.find(record => record.id === Number(cardId));
+    if (!card) return;
+
+    commit(types.UPDATE_KANBAN_CARD, { ...card, ...attributes });
   },
 };
 

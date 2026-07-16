@@ -6,6 +6,7 @@
 #  color           :string
 #  description     :text
 #  name            :string           not null
+#  outcome         :string           default("open"), not null
 #  position        :integer          default(0), not null
 #  win_probability :decimal(5, 2)    default(100.0), not null
 #  created_at      :datetime         not null
@@ -35,6 +36,7 @@ class KanbanColumn < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { scope: :kanban_board_id }
   validates :description, length: { maximum: 120 }
+  validates :outcome, inclusion: { in: %w[open won lost] }
   validates :position, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :win_probability, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
 

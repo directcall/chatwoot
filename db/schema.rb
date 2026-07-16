@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_07_14_000003) do
+ActiveRecord::Schema[7.1].define(version: 2026_07_16_000000) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -1083,6 +1083,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_14_000003) do
     t.integer "board_type", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "settings", default: {}, null: false
     t.index ["account_id", "name"], name: "index_kanban_boards_on_account_id_and_name", unique: true
     t.index ["account_id"], name: "index_kanban_boards_on_account_id"
   end
@@ -1114,6 +1115,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_14_000003) do
     t.datetime "updated_at", null: false
     t.text "description"
     t.decimal "win_probability", precision: 5, scale: 2, default: "100.0", null: false
+    t.string "outcome", default: "open", null: false
     t.index ["account_id"], name: "index_kanban_columns_on_account_id"
     t.index ["kanban_board_id", "name"], name: "index_kanban_columns_on_kanban_board_id_and_name", unique: true
     t.index ["kanban_board_id", "position"], name: "index_kanban_columns_on_kanban_board_id_and_position"

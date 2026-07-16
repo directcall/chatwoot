@@ -4,7 +4,7 @@ class Api::V1::Accounts::KanbanCardsController < Api::V1::Accounts::BaseControll
   before_action :check_authorization
 
   def index
-    @kanban_cards = @kanban_board.kanban_cards.includes(:kanban_column, conversation: [:contact, :inbox]).ordered
+    @kanban_cards = @kanban_board.kanban_cards.includes(:kanban_column, conversation: [:contact, :inbox, :assignee]).ordered
   end
 
   def show; end

@@ -25,7 +25,7 @@
     "semantic_hash": "aad9d067168a3ba8bb04158d46dcc8f7"
   },
   ".husky/_/husky.sh": {
-    "mtime": 1784146613.629044,
+    "mtime": 1784209589.892625,
     "ast_hash": "2a2f58fe1b1564cf99166ac61f358aa6",
     "semantic_hash": "2a2f58fe1b1564cf99166ac61f358aa6"
   },
@@ -14430,9 +14430,9 @@
     "semantic_hash": "3d5ebb145b3a320c1ea5f8fe17211350"
   },
   "app/javascript/dashboard/i18n/locale/pt/index.js": {
-    "mtime": 1783694273.425714,
-    "ast_hash": "8691ae0d417f4492f30aae1beb9221ed",
-    "semantic_hash": "8691ae0d417f4492f30aae1beb9221ed"
+    "mtime": 1784206909.6465394,
+    "ast_hash": "800fabbdd0570aa4c634aa03e0d837e0",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/i18n/locale/pt/integrationApps.json": {
     "mtime": 1783694273.425809,
@@ -14490,9 +14490,9 @@
     "semantic_hash": "368b98559cb7332db039b81b63413327"
   },
   "app/javascript/dashboard/i18n/locale/pt/settings.json": {
-    "mtime": 1783694273.4271312,
-    "ast_hash": "71a5987c0dbb63803394e7fdd62de9d9",
-    "semantic_hash": "71a5987c0dbb63803394e7fdd62de9d9"
+    "mtime": 1784206924.0697927,
+    "ast_hash": "4dc6f2dfbd0b66bade635fb5bce60ded",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/i18n/locale/pt/signup.json": {
     "mtime": 1783694273.427231,
@@ -14655,9 +14655,9 @@
     "semantic_hash": "59f6f4428f8eb2b4383e0cbe766b0d2a"
   },
   "app/javascript/dashboard/i18n/locale/pt_BR/index.js": {
-    "mtime": 1783694273.431064,
-    "ast_hash": "7675b33de079edf5a2471611a7f20b47",
-    "semantic_hash": "7675b33de079edf5a2471611a7f20b47"
+    "mtime": 1784206908.7850904,
+    "ast_hash": "b3acd60d7bbc733b67207104ba20086f",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/i18n/locale/pt_BR/integrationApps.json": {
     "mtime": 1783694273.4311874,
@@ -14715,9 +14715,9 @@
     "semantic_hash": "06383d9e3fdd4cd9c48135f091304fff"
   },
   "app/javascript/dashboard/i18n/locale/pt_BR/settings.json": {
-    "mtime": 1783694273.432564,
-    "ast_hash": "9be2ef20eacf5474e9b8e218ad463989",
-    "semantic_hash": "9be2ef20eacf5474e9b8e218ad463989"
+    "mtime": 1784206923.725467,
+    "ast_hash": "9a4b033371ed8203ad1398c681f96fd2",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/i18n/locale/pt_BR/signup.json": {
     "mtime": 1783694273.4327586,
@@ -28190,9 +28190,9 @@
     "semantic_hash": "0b95efb197e9f8d1e6f2f5f568f414e8"
   },
   "db/schema.rb": {
-    "mtime": 1784146620.7006335,
-    "ast_hash": "1540823dc475b83b2e0a232dd6a84d85",
-    "semantic_hash": "1540823dc475b83b2e0a232dd6a84d85"
+    "mtime": 1784205457.5766513,
+    "ast_hash": "a805bc34862612cd4142911b9e338f63",
+    "semantic_hash": ""
   },
   "db/seeds.rb": {
     "mtime": 1783694273.8795977,
@@ -34920,9 +34920,9 @@
     "semantic_hash": "49304a47e10e60625b3268944bc7f029"
   },
   "vite.config.ts": {
-    "mtime": 1783694274.5476222,
-    "ast_hash": "fa394c9a341860ffb54bf12205af7e5d",
-    "semantic_hash": "fa394c9a341860ffb54bf12205af7e5d"
+    "mtime": 1784209320.9272037,
+    "ast_hash": "360d9d5f7ffd641b9f3146d08ec81221",
+    "semantic_hash": ""
   },
   "vite.lib.config.ts": {
     "mtime": 1783694274.5477436,
@@ -37135,19 +37135,19 @@
     "semantic_hash": "c1b4c1be97c6768c0e5547c2b07bf2a2"
   },
   "app/controllers/api/v1/accounts/kanban_boards_controller.rb": {
-    "mtime": 1784145053.5776553,
-    "ast_hash": "e6d5d79397c3c65f34b573544fcc2b28",
-    "semantic_hash": "e6d5d79397c3c65f34b573544fcc2b28"
+    "mtime": 1784203940.9536397,
+    "ast_hash": "fa040bebe0567dcb8d4fa8a0dc27740a",
+    "semantic_hash": ""
   },
   "app/controllers/api/v1/accounts/kanban_cards_controller.rb": {
-    "mtime": 1784145053.57828,
-    "ast_hash": "2c022c51082b1bbb5553c11e94efbf10",
-    "semantic_hash": "2c022c51082b1bbb5553c11e94efbf10"
+    "mtime": 1784201878.9344537,
+    "ast_hash": "4d4af83641c71d219aded5730d08bc11",
+    "semantic_hash": ""
   },
   "app/controllers/api/v1/accounts/kanban_columns_controller.rb": {
-    "mtime": 1784145053.5787475,
-    "ast_hash": "704859e26f0ce09f2f0324da4236a6a7",
-    "semantic_hash": "704859e26f0ce09f2f0324da4236a6a7"
+    "mtime": 1784203523.5755823,
+    "ast_hash": "c2a239b57cb01233aa4ba9c99bb940cb",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/api/kanbanBoards.js": {
     "mtime": 1784145053.5802758,
@@ -37165,39 +37165,39 @@
     "semantic_hash": "73f71464ba957fbbcf291b9c98838ed8"
   },
   "app/javascript/dashboard/i18n/locale/en/kanban.json": {
-    "mtime": 1784145053.5879943,
-    "ast_hash": "a50b40e46c0817e122191152c35f6a1e",
-    "semantic_hash": "a50b40e46c0817e122191152c35f6a1e"
+    "mtime": 1784210613.764107,
+    "ast_hash": "2a89d9a976bd0b77aae30312cbecd85c",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/kanban/KanbanView.vue": {
-    "mtime": 1784145053.5901394,
-    "ast_hash": "de2e9252597ef9e52e78a610ed3dadd4",
-    "semantic_hash": "de2e9252597ef9e52e78a610ed3dadd4"
+    "mtime": 1784210798.1944776,
+    "ast_hash": "4dd16e087d10bc37ffadb12b8004871a",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/kanban/components/KanbanCard.vue": {
-    "mtime": 1784145053.590748,
-    "ast_hash": "25f46bd30ffe2677cb486ebb01e05c81",
-    "semantic_hash": "25f46bd30ffe2677cb486ebb01e05c81"
+    "mtime": 1784210791.5086508,
+    "ast_hash": "42d1f3bc00fa3f4d53949f8e1924efa5",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/kanban/components/KanbanColumn.vue": {
-    "mtime": 1784145053.5911188,
-    "ast_hash": "2b6f1dfa98ab63c27fcbed8206cb6d86",
-    "semantic_hash": "2b6f1dfa98ab63c27fcbed8206cb6d86"
+    "mtime": 1784210599.53434,
+    "ast_hash": "663ad66dd04dd10ef5f1d5b1f9fae75c",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/kanban/kanban.routes.js": {
-    "mtime": 1784145053.591727,
-    "ast_hash": "d8e215f67e6f5cd6743cc0e1faa5d428",
-    "semantic_hash": "d8e215f67e6f5cd6743cc0e1faa5d428"
+    "mtime": 1784203524.0455914,
+    "ast_hash": "b549d2693700e00fb7b22a0113321872",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/store/modules/kanban.js": {
-    "mtime": 1784145053.5944428,
-    "ast_hash": "c20f59dfec34d9656832c28718c9e4dd",
-    "semantic_hash": "c20f59dfec34d9656832c28718c9e4dd"
+    "mtime": 1784210798.6395733,
+    "ast_hash": "63b2bf2bfcf00d4b7fb2791e16841def",
+    "semantic_hash": ""
   },
   "app/models/kanban_board.rb": {
-    "mtime": 1784145053.6003249,
-    "ast_hash": "af8223a6b917f5e8861a28b7fe92ef88",
-    "semantic_hash": "af8223a6b917f5e8861a28b7fe92ef88"
+    "mtime": 1784203753.8803077,
+    "ast_hash": "492f03f8f28adf77e69b0af0a8cb5e6b",
+    "semantic_hash": ""
   },
   "app/models/kanban_card.rb": {
     "mtime": 1784145053.601037,
@@ -37205,9 +37205,9 @@
     "semantic_hash": "4a66ea9222546a3b2cad70e4d025b9c8"
   },
   "app/models/kanban_column.rb": {
-    "mtime": 1784145053.601663,
-    "ast_hash": "8c7d3dfb31ad838ced659b990489f4e1",
-    "semantic_hash": "8c7d3dfb31ad838ced659b990489f4e1"
+    "mtime": 1784203754.043952,
+    "ast_hash": "f56039dbc5ec8c4f15016e4838cf1279",
+    "semantic_hash": ""
   },
   "app/policies/kanban_board_policy.rb": {
     "mtime": 1784145053.6041026,
@@ -37520,8 +37520,8 @@
     "semantic_hash": ""
   },
   "docker-compose.yaml": {
-    "mtime": 1784145729.6343539,
-    "ast_hash": "e72b7dd1b3b267818c4fd5880ed58a7c",
+    "mtime": 1784209320.049953,
+    "ast_hash": "7d813d5293fd171e2c52fdb3043c1afa",
     "semantic_hash": ""
   },
   "semantic.yml": {
@@ -38742,6 +38742,46 @@
   "public/dashboard/images/integrations/intercom.png": {
     "mtime": 1784145060.8101363,
     "ast_hash": "9132d424aa67972af83934499ef9f05e",
+    "semantic_hash": ""
+  },
+  "app/javascript/dashboard/routes/dashboard/kanban/components/KanbanFilterSelect.vue": {
+    "mtime": 1784201969.1167464,
+    "ast_hash": "e65d4985123bf169e33c5a9c883073ac",
+    "semantic_hash": ""
+  },
+  "app/javascript/dashboard/routes/dashboard/kanban/KanbanSettings.vue": {
+    "mtime": 1784203697.6858094,
+    "ast_hash": "2d8200741470f80275f1a504412f578d",
+    "semantic_hash": ""
+  },
+  "app/javascript/dashboard/routes/dashboard/kanban/columnColors.js": {
+    "mtime": 1784203697.6935222,
+    "ast_hash": "89bf036d248d144b63e2f8d45203669e",
+    "semantic_hash": ""
+  },
+  "db/migrate/20260716000000_add_settings_to_kanban_boards.rb": {
+    "mtime": 1784203523.0708952,
+    "ast_hash": "0cc27244422ad3ff5c90661eecb89caf",
+    "semantic_hash": ""
+  },
+  "app/javascript/dashboard/i18n/locale/pt/kanban.json": {
+    "mtime": 1784210616.2977424,
+    "ast_hash": "25410a082d0a5e5c04d2a0c224dc5fb3",
+    "semantic_hash": ""
+  },
+  "app/javascript/dashboard/i18n/locale/pt_BR/kanban.json": {
+    "mtime": 1784210615.0724688,
+    "ast_hash": "bf0b0e825d46f1723cf49a35f69ebb1a",
+    "semantic_hash": ""
+  },
+  "app/javascript/dashboard/routes/dashboard/kanban/cardHelpers.js": {
+    "mtime": 1784210791.508677,
+    "ast_hash": "29feedd041d881e3a77d4f04a2ace38d",
+    "semantic_hash": ""
+  },
+  "app/javascript/dashboard/routes/dashboard/kanban/components/KanbanCardEditDialog.vue": {
+    "mtime": 1784210792.3084085,
+    "ast_hash": "723653e2aa081c55565ae9efe755e102",
     "semantic_hash": ""
   }
 }
